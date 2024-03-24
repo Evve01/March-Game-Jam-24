@@ -1,6 +1,7 @@
 extends Node3D
 
 var player
+var timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
