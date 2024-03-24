@@ -1,14 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3dhqvtn0bajh"]
+[gd_scene load_steps=10 format=3 uid="uid://c3dhqvtn0bajh"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_40hhh"]
+[ext_resource type="Script" path="res://Player_test.gd" id="1_18unp"]
+[ext_resource type="Texture2D" uid="uid://xblml4sfbqjg" path="res://ground1.png" id="1_i3giq"]
 [ext_resource type="Texture2D" uid="uid://5e84tpjee5jg" path="res://icon.svg" id="2_eairr"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="3_ja6tt"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ibbu"]
+texture = ExtResource("1_i3giq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_qeqlm"]
-tile_size = Vector2i(25, 16)
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_1ibbu")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d87dj"]
+size = Vector2(127.5, 128)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8u4gh"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kkkw5"]
+friction = 0.3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eiy30"]
+size = Vector2(1156, 96)
 
 [node name="Node3D" type="Node3D"]
 
@@ -17,9 +34,10 @@ tile_size = Vector2i(25, 16)
 [node name="TileMap" type="TileMap" parent="Node2D"]
 tile_set = SubResource("TileSet_qeqlm")
 format = 2
+layer_0/tile_data = PackedInt32Array(589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 393224, 0, 0, 393225, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 393228, 0, 0, 393226, 0, 0, 393227, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Node2D"]
-script = ExtResource("1_40hhh")
+script = ExtResource("1_18unp")
 
 [node name="TextureRect" type="TextureRect" parent="Node2D/CharacterBody2D"]
 offset_right = 128.0
@@ -27,11 +45,16 @@ offset_bottom = 128.0
 texture = ExtResource("2_eairr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/CharacterBody2D"]
+position = Vector2(64.25, 64)
 shape = SubResource("RectangleShape2D_d87dj")
 
-[node name="Area2D" type="Area2D" parent="Node2D"]
-position = Vector2(401, 402)
+[node name="Camera2D" type="Camera2D" parent="Node2D/CharacterBody2D"]
+script = ExtResource("3_ja6tt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
-position = Vector2(16, 154)
-shape = SubResource("WorldBoundaryShape2D_8u4gh")
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
+position = Vector2(240, 326)
+physics_material_override = SubResource("PhysicsMaterial_kkkw5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(337, 270)
+shape = SubResource("RectangleShape2D_eiy30")
