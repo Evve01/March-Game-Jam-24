@@ -1,5 +1,5 @@
 extends Camera2D
-@export var zoom_level = 0.8;
+var zoom_level = 1.5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
