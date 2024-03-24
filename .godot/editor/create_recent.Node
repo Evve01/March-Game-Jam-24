@@ -1,2 +1,6 @@
-Sprite2D
 AudioStreamPlayer
+AudioStreamPlayer2D
+Area2D
+CollisionShape2D
+Node2D
+Sprite2D

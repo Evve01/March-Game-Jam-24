@@ -1,3 +1,6 @@
 res://node_3d.tscn
 res://Player_test.gd
 res://Camera2D.gd
+res://pickup.tscn
+res://pickup.gd
+res://GameManager.gd

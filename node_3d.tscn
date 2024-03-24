@@ -1,10 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://c3dhqvtn0bajh"]
+[gd_scene load_steps=16 format=3 uid="uid://c3dhqvtn0bajh"]
 
 [ext_resource type="Script" path="res://Player_test.gd" id="1_18unp"]
 [ext_resource type="Texture2D" uid="uid://xblml4sfbqjg" path="res://ground1.png" id="1_i3giq"]
+[ext_resource type="Script" path="res://GameManager.gd" id="1_wcy2e"]
+[ext_resource type="Texture2D" uid="uid://g6mr0bgahha2" path="res://sprites/coin.png" id="2_f6mg2"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="3_ja6tt"]
 [ext_resource type="Texture2D" uid="uid://dado82jg8vtfm" path="res://sprites/player_idle.png" id="5_61hbv"]
 [ext_resource type="AudioStream" uid="uid://bwxpgccxs0tby" path="res://sounds/jump.wav" id="5_c8ynd"]
+[ext_resource type="PackedScene" uid="uid://bdi43pbokc7fr" path="res://pickup.tscn" id="7_bml2w"]
+[ext_resource type="AudioStream" uid="uid://xiqjccauvuyd" path="res://sounds/350868__cabled_mess__coin_c_05.wav" id="8_3vnj3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ibbu"]
 texture = ExtResource("1_i3giq")
@@ -14,10 +18,18 @@ texture_region_size = Vector2i(32, 32)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5pv4f"]
+texture = ExtResource("2_f6mg2")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
 [sub_resource type="TileSet" id="TileSet_qeqlm"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_1ibbu")
+sources/1 = SubResource("TileSetAtlasSource_5pv4f")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d87dj"]
 size = Vector2(32, 32)
@@ -29,6 +41,7 @@ friction = 0.3
 size = Vector2(1156, 96)
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_wcy2e")
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -55,6 +68,9 @@ stream = ExtResource("5_c8ynd")
 position = Vector2(64, 245)
 texture = ExtResource("5_61hbv")
 
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Node2D/CharacterBody2D"]
+stream = ExtResource("8_3vnj3")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
 position = Vector2(240, 326)
 physics_material_override = SubResource("PhysicsMaterial_kkkw5")
@@ -62,3 +78,6 @@ physics_material_override = SubResource("PhysicsMaterial_kkkw5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
 position = Vector2(337, 270)
 shape = SubResource("RectangleShape2D_eiy30")
+
+[node name="Node2D2" parent="." instance=ExtResource("7_bml2w")]
+position = Vector2(143, 269)
