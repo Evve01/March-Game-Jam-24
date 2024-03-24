@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
+const ACCELERATION = 1000.0
+const DECELERATION = 500.0
 const JUMP_VELOCITY = -500.0
 var jump_sound
 var pickup_sound
@@ -31,8 +33,8 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = move_toward(velocity.x, direction*SPEED, ACCELERATION*delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, DECELERATION*delta)
 
 	move_and_slide()
